@@ -5,6 +5,7 @@ import bg from './img/bg.png';
 // import { a, b } from './data.js';
 import data from './data.js';
 import { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
 
@@ -23,26 +24,34 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="main-bg" style={{ backgroundImage: 'url(' + bg + ')' }}></div>
+      <Routes>
+        <Route path="/" element={
+          <>
+            <div className="main-bg" style={{ backgroundImage: 'url(' + bg + ')' }}></div>
+            <div className="container">
+              <div className="row">
 
-      <div className="container">
-        <div className="row">
+                {/* 
+             <Card shoes={shoes[0]} i={1} />
+             <Card shoes={shoes[1]} i={2} />
+             <Card shoes={shoes[2]} i={3} /> */}
 
-          {/* 
-          <Card shoes={shoes[0]} i={1} />
-          <Card shoes={shoes[1]} i={2} />
-          <Card shoes={shoes[2]} i={3} /> */}
+                {
+                  shoes.map((a, i) => {
+                    return (
+                      <Card shoes={shoes[i]} i={i} />
+                    )
+                  })
+                }
 
-          {
-            shoes.map((a, i) => {
-              return (
-                <Card shoes={shoes[i]} i={i} />
-              )
-            })
-          }
+              </div>
+            </div>
+          </>
+        }
 
-        </div>
-      </div>
+        ></Route>
+        <Route path="/datail" element={<div>상세페이지</div>} />
+      </Routes>
 
     </div>
   );
