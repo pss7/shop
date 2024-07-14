@@ -1,15 +1,3 @@
-/*
-let a = 10;
-
-export default a;
-
-let a = 10;
-let b = 100;
-
-export { a, b }
-
-*/
-
 let data = [
     {
         id: 0,

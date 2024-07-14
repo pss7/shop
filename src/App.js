@@ -1,15 +1,15 @@
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
-// import a from './data.js';
-// import { a, b } from './data.js';
 import data from './data.js';
 import { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import Detail from './routes/Detail.js';
 
 function App() {
 
   let [shoes] = useState(data);
+  let navigate = useNavigate();
 
   return (
     <div className="App">
@@ -18,8 +18,8 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Nav.Link onClick={() => { navigate("/") }}>Home</Nav.Link>
+            <Nav.Link onClick={() => { navigate("/detail") }}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -30,11 +30,6 @@ function App() {
             <div className="main-bg" style={{ backgroundImage: 'url(' + bg + ')' }}></div>
             <div className="container">
               <div className="row">
-
-                {/* 
-             <Card shoes={shoes[0]} i={1} />
-             <Card shoes={shoes[1]} i={2} />
-             <Card shoes={shoes[2]} i={3} /> */}
 
                 {
                   shoes.map((a, i) => {
@@ -50,12 +45,28 @@ function App() {
         }
 
         ></Route>
-        <Route path="/datail" element={<div>상세페이지</div>} />
+        <Route path="/detail" element={<Detail />} />
+        
+        <Route path="/about" element={<About />} >
+          <Route path="member" element={<div>멤버임</div>} />
+          <Route path="location" element={<div>위치정보임</div>} />
+        </Route>
+
+        <Route path='*' element={<div>404</div>} />
       </Routes>
 
     </div>
   );
 };
+
+function About() {
+  return (
+    <div>
+      <h4>회사정보</h4>
+      <Outlet />
+    </div>
+  )
+}
 
 function Card(props) {
 
