@@ -1,6 +1,20 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function Detail(props) {
+
+    let [alert, setAlert] = useState(true);
+
+    useEffect(() => {
+        let a = setTimeout(() => {
+            setAlert(false);
+        }, 2000)
+
+        return () => {
+           clearTimeout(a);
+           }
+
+    }, [])
 
     let { id } = useParams();
 
@@ -12,6 +26,13 @@ function Detail(props) {
         <>
             <div className="container">
                 <div className="row">
+                    {
+                        alert == true ?
+                            <div className="alert alert-warning">
+                                2초이내 구매시 할인
+                            </div>
+                            : null
+                    }
                     <div className="col-md-6">
                         <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
                     </div>
