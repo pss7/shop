@@ -5,6 +5,7 @@ import data from './data.js';
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
+import axios from 'axios';
 
 function App() {
 
@@ -34,13 +35,22 @@ function App() {
                 {
                   shoes.map((a, i) => {
                     return (
-                      <Card shoes={shoes[i]} i={i} />
+                      <Card key={i} shoes={shoes[i]} i={i} />
                     )
                   })
                 }
 
               </div>
             </div>
+            <button onClick={() => {
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((결과) => {
+                  console.log(결과.data)
+                })
+                .catch(() => {
+                  console.log('실패함')
+                })
+            }}>버튼</button>
           </>
         }
 
