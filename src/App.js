@@ -6,10 +6,13 @@ import { useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
 import axios from 'axios';
+import { BarLoader } from 'react-spinners';
 
 function App() {
 
-  let [shoes] = useState(data);
+  let [loading, setLoading] = useState(false);
+  let [btnNum, setBtnNum] = useState(0);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
 
   return (
@@ -43,14 +46,56 @@ function App() {
               </div>
             </div>
             <button onClick={() => {
-              axios.get('https://codingapple1.github.io/shop/data2.json')
+
+              setLoading(true);
+              setBtnNum(btnNum + 1);
+
+              /*
+if (btnNum == 1) {
+  axios.get('https://codingapple1.github.io/shop/data2.json')
+    .then((결과) => {
+      let copy = [...shoes, ...결과.data];
+      setShoes(copy);
+      setLoading(false);
+    })
+    .catch(() => {
+      console.log('실패함');
+      setLoading(false);
+    })
+} else if (btnNum == 2) {
+  axios.get('https://codingapple1.github.io/shop/data3.json')
+    .then((결과) => {
+      let copy = [...shoes, ...결과.data];
+      setShoes(copy);
+      setLoading(false);
+    })
+    .catch(() => {
+      console.log('실패함');
+      setLoading(false);
+    })
+} else {
+  alert('상품이 없습니다.');
+  setLoading(false);
+}
+*/
+
+              axios.get("https://codingapple1.github.io/shop/data" + (btnNum + 2) + ".json")
                 .then((결과) => {
-                  console.log(결과.data)
+                  let copy = [...shoes, ...결과.data];
+                  setShoes(copy);
+                  setLoading(false);
                 })
                 .catch(() => {
-                  console.log('실패함')
+                  setLoading(false);
+                  alert('상품이 없습니다.');
                 })
+
             }}>버튼</button>
+
+            {
+              loading === true ? <Loading /> : null
+            }
+
           </>
         }
 
@@ -85,6 +130,17 @@ function EventPage() {
     </>
   )
 
+}
+
+function Loading() {
+  return (
+    <BarLoader
+      color="#6d6d6d"
+      cssOverride={{
+        margin: "100px auto"
+      }}
+    />
+  )
 }
 
 function About() {
