@@ -2,17 +2,20 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
 import data from './data.js';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
 import axios from 'axios';
 import { BarLoader } from 'react-spinners';
+
+export let Context1 = createContext();
 
 function App() {
 
   let [loading, setLoading] = useState(false);
   let [btnNum, setBtnNum] = useState(0);
   let [shoes, setShoes] = useState(data);
+  let [재고] = useState([10, 11, 12]);
   let navigate = useNavigate();
 
   return (
@@ -100,7 +103,11 @@ if (btnNum == 1) {
         }
 
         ></Route>
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route path="/detail/:id" element={
+          <Context1.Provider value={{ 재고 }}>
+            <Detail shoes={shoes} />
+          </Context1.Provider>
+        } />
 
         <Route path="/about" element={<About />} >
           <Route path="member" element={<div>멤버임</div>} />
