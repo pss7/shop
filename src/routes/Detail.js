@@ -4,20 +4,21 @@ import { Nav } from "react-bootstrap";
 
 function Detail(props) {
 
+    let [fade2, setFade2] = useState('');
     let [info, setInfo] = useState(true);
     // let [num, setNum] = useState('');
 
     let [탭, 탭변경] = useState(0);
 
     useEffect(() => {
+        setFade2('end')
         let a = setTimeout(() => {
             setInfo(false);
         }, 2000)
-
         return () => {
             clearTimeout(a);
+            setFade2('')
         }
-
     }, []);
 
     /*
@@ -35,7 +36,7 @@ function Detail(props) {
     })
 
     return (
-        <div className="container">
+        <div className={'container start ' + fade2}>
             <div className="row">
                 {
                     info == true ?
