@@ -5,6 +5,7 @@ import data from './data.js';
 import { createContext, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
+import Cart from './routes/Cart.js';
 import axios from 'axios';
 import { BarLoader } from 'react-spinners';
 
@@ -108,6 +109,8 @@ if (btnNum == 1) {
             <Detail shoes={shoes} />
           </Context1.Provider>
         } />
+
+        <Route path="/cart" element={<Cart />} />
 
         <Route path="/about" element={<About />} >
           <Route path="member" element={<div>멤버임</div>} />
