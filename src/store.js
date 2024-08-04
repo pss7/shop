@@ -4,8 +4,15 @@ let user = createSlice({
 
     name: 'user',
     initialState: 'park',
-   
+    reducers : {
+        changeName(state){
+            return 'seok' + state
+        }
+    }
+
 })
+
+export let { changeName } = user.actions
 
 let stock = createSlice({
 
