@@ -1,6 +1,6 @@
 import { Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { changeName } from "./../store.js"
+import { changeName, increase } from "./../store/userSlice.js"
 
 function Cart() {
 
@@ -9,7 +9,13 @@ function Cart() {
 
     return (
         <div className="mt-5">
-            <Table>
+
+            <h6>{state.user.name} {state.user.age}의 장바구니</h6>
+            <button className="mt-3" onClick={() =>
+                dispatch(increase(10))
+            }>버튼</button>
+
+            <Table className="mt-5">
                 <thead>
                     <tr>
                         <th>#</th>
