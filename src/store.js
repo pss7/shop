@@ -25,17 +25,28 @@ let cart = createSlice({
     ],
     reducers: {
         addCount(state, action) {
-            let 번호 = state.findIndex((a) => { return a.id === action.payload })
-            state[번호].count++
+            let 번호 = state.findIndex((a) => { return a.id === action.payload });
+            state[번호].count++;
         },
         addItem(state, action) {
-            state.push(action.payload)
+            let product = state.find((a) => { return a.id === action.payload.id });
+            if (product === undefined) {
+                alert("상품이 추가되었습니다.");
+                state.push(action.payload);
+            } else {
+                alert("중복된 상품입니다.");
+            }
+        },
+        deleteItem(state, action) {
+            return state.filter((a) => {
+                return a.id != action.payload;
+            })
         }
     }
 
 })
 
-export let { addCount, addItem } = cart.actions
+export let { addCount, addItem, deleteItem } = cart.actions
 
 export default configureStore({
     reducer: {
