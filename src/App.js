@@ -2,7 +2,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
 import data from './data.js';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
 import Cart from './routes/Cart.js';
@@ -12,6 +12,20 @@ import { BarLoader } from 'react-spinners';
 export let Context1 = createContext();
 
 function App() {
+
+  useEffect(() => {
+
+    let watched = localStorage.getItem('watched');
+    if (!watched) {
+      localStorage.setItem('watched', JSON.stringify([]));
+    }
+
+  }, []);
+
+  let obj = { name: 'park' };
+  localStorage.setItem('data', JSON.stringify(obj));
+  let 꺼낸거 = localStorage.getItem('data');
+  console.log(JSON.parse(꺼낸거));
 
   let [loading, setLoading] = useState(false);
   let [btnNum, setBtnNum] = useState(0);
@@ -24,7 +38,7 @@ function App() {
 
       <Navbar bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
+          <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() => { navigate("/") }}>Home</Nav.Link>
             <Nav.Link onClick={() => { navigate("/cart") }}>Cart</Nav.Link>
@@ -167,9 +181,11 @@ function Card(props) {
   return (
 
     <div className="col-md-4">
-      <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width="80%" />
-      <h4>{props.shoes.title}</h4>
-      <p>{props.shoes.price}</p>
+      <Link to={`/detail/${props.i}`}>
+        <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width="80%" />
+        <h4>{props.shoes.title}</h4>
+        <p>{props.shoes.price}</p>
+      </Link>
     </div>
 
   );
