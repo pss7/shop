@@ -13,25 +13,28 @@ export let Context1 = createContext();
 
 function App() {
 
+  let [loading, setLoading] = useState(false);
+  let [btnNum, setBtnNum] = useState(0);
+  let [shoes, setShoes] = useState(data);
+  let [재고] = useState([10, 11, 12]);
+  let navigate = useNavigate();
+
   useEffect(() => {
 
     let watched = localStorage.getItem('watched');
+
     if (!watched) {
       localStorage.setItem('watched', JSON.stringify([]));
     }
 
   }, []);
 
+  /*
   let obj = { name: 'park' };
   localStorage.setItem('data', JSON.stringify(obj));
   let 꺼낸거 = localStorage.getItem('data');
   console.log(JSON.parse(꺼낸거));
-
-  let [loading, setLoading] = useState(false);
-  let [btnNum, setBtnNum] = useState(0);
-  let [shoes, setShoes] = useState(data);
-  let [재고] = useState([10, 11, 12]);
-  let navigate = useNavigate();
+  */
 
   return (
     <div className="App">
@@ -114,7 +117,10 @@ if (btnNum == 1) {
               loading === true ? <Loading /> : null
             }
 
+            <ProductList shoes={shoes} />
+
           </>
+
         }
 
         ></Route>
@@ -142,6 +148,32 @@ if (btnNum == 1) {
     </div>
   );
 };
+
+function ProductList(props) {
+
+  let productItem = JSON.parse(localStorage.getItem('watched'));
+
+  return (
+    <div className="productListWrap">
+      <h1>
+        최근 본 상품
+      </h1>
+      <ul className="productList">
+        {productItem &&
+          productItem.map((a, i) => {           
+            return (
+              <li key={i}>
+                <img src={`https://codingapple1.github.io/shop/shoes${a+1}.jpg`} width="100%" />
+              </li>
+            )
+          })
+        }
+      </ul>
+    </div>
+  )
+
+}
+
 
 function EventPage() {
 
@@ -179,10 +211,9 @@ function About() {
 function Card(props) {
 
   return (
-
     <div className="col-md-4">
       <Link to={`/detail/${props.i}`}>
-        <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width="80%" />
+        <img src={'https://codingapple1.github.io/shop/shoes' + (props.i+1) + '.jpg'} width="80%" />
         <h4>{props.shoes.title}</h4>
         <p>{props.shoes.price}</p>
       </Link>

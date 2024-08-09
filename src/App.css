@@ -57,3 +57,9 @@
 }
 
 a{text-decoration: none; color: #333;}
+ul, li{margin: 0; padding: 0; list-style: none;}
+.productListWrap{padding: 20px; position: fixed; top: 56px; right:0; width: 180px; background-color: #ddd;}
+.productListWrap h1{margin-bottom: 20px; font-size: 18px; font-weight: 700;}
+.productListWrap h2{font-size: 16px; margin: 13px 0;}
+.productListWrap .productList li{margin-bottom: 10px;}
+.productListWrap .productList li:last-child{margin-bottom: 0;}

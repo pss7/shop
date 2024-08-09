@@ -61,7 +61,7 @@ function Detail(props) {
                 }
 
                 <div className="col-md-6">
-                    <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+                    <img src={`https://codingapple1.github.io/shop/shoes${찾은상품.id + 1}.jpg`} width="100%" />
                 </div>
                 {/* <input
                         onChange={(e) => { setNum(e.target.value) }}
