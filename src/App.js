@@ -7,6 +7,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import { BarLoader } from 'react-spinners';
 import { useQuery } from 'react-query';
+import Test from './Test.js';
 
 // import Detail from './routes/Detail.js';
 // import Cart from './routes/Cart.js';
@@ -167,6 +168,7 @@ function App() {
             <Route path="two" element={<p>생일기념 쿠폰받기</p>}></Route>
           </Route>
 
+          <Route path='/test' element={<Test/>} />
           <Route path='*' element={<div>404</div>} />
         </Routes>
       </Suspense>
@@ -180,6 +182,7 @@ function ProductList(props) {
   let productItem = JSON.parse(localStorage.getItem('watched'));
 
   return (
+
     <div className="productListWrap">
       <h1>
         최근 본 상품
