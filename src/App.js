@@ -8,6 +8,7 @@ import Detail from './routes/Detail.js';
 import Cart from './routes/Cart.js';
 import axios from 'axios';
 import { BarLoader } from 'react-spinners';
+import { useQuery } from 'react-query';
 
 export let Context1 = createContext();
 
@@ -18,6 +19,20 @@ function App() {
   let [shoes, setShoes] = useState(data);
   let [재고] = useState([10, 11, 12]);
   let navigate = useNavigate();
+
+  let result = useQuery('작명', () => {
+    return axios.get('https://codingapple1.github.io/userdata.json').then((a) => {
+      console.log('요청됨')
+      return a.data
+    }),
+    {
+      staleTime : 2000
+    }
+  })
+
+  console.log(result.data);
+  console.log(result.isLoading);
+  console.log(result.error);
 
   useEffect(() => {
 
@@ -45,6 +60,11 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link onClick={() => { navigate("/") }}>Home</Nav.Link>
             <Nav.Link onClick={() => { navigate("/cart") }}>Cart</Nav.Link>
+          </Nav>
+          <Nav className="ms-auto">
+            {result.isLoading && '로딩중'}
+            {result.error && '에러남'}
+            {result.data && result.data.name}
           </Nav>
         </Container>
       </Navbar>
@@ -160,10 +180,10 @@ function ProductList(props) {
       </h1>
       <ul className="productList">
         {productItem &&
-          productItem.map((a, i) => {           
+          productItem.map((a, i) => {
             return (
               <li key={i}>
-                <img src={`https://codingapple1.github.io/shop/shoes${a+1}.jpg`} width="100%" />
+                <img src={`https://codingapple1.github.io/shop/shoes${a + 1}.jpg`} width="100%" />
               </li>
             )
           })
@@ -213,7 +233,7 @@ function Card(props) {
   return (
     <div className="col-md-4">
       <Link to={`/detail/${props.i}`}>
-        <img src={'https://codingapple1.github.io/shop/shoes' + (props.i+1) + '.jpg'} width="80%" />
+        <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width="80%" />
         <h4>{props.shoes.title}</h4>
         <p>{props.shoes.price}</p>
       </Link>
