@@ -4,8 +4,13 @@ import { Nav } from "react-bootstrap";
 import { Context1 } from "./../App.js";
 import { addItem } from "../store.js";
 import { useDispatch } from "react-redux";
+import { useLike } from "../hooks/useLike.js";
+import { useUsername } from "../hooks/useUsername.js";
 
 function Detail(props) {
+
+    let username = useUsername();
+    let [like, addLike] = useLike();
 
     let dispatch = useDispatch();
 
@@ -40,15 +45,15 @@ function Detail(props) {
         return x.id == id
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         let 꺼낸거 = localStorage.getItem('watched')
         꺼낸거 = JSON.parse(꺼낸거)
         꺼낸거.push(찾은상품.id)
         꺼낸거 = new Set(꺼낸거)
         꺼낸거 = Array.from(꺼낸거)
         localStorage.setItem('watched', JSON.stringify(꺼낸거))
-      }, [])
-      
+    }, [])
+
     return (
         <div className={'container start ' + fade2}>
             <div className="row">
@@ -59,7 +64,7 @@ function Detail(props) {
                         </div>
                         : null
                 }
-
+                {username.name}
                 <div className="col-md-6">
                     <img src={`https://codingapple1.github.io/shop/shoes${찾은상품.id + 1}.jpg`} width="100%" />
                 </div>
@@ -67,6 +72,9 @@ function Detail(props) {
                         onChange={(e) => { setNum(e.target.value) }}
                     /> */}
                 <div className="col-md-6">
+
+                    {like}<button onClick={() => { addLike() }}>❤</button>
+
                     <h4 className="pt-5">{찾은상품.title}</h4>
                     <p>{찾은상품.content}</p>
                     <p>{찾은상품.price}원</p>

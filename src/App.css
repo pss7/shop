@@ -56,6 +56,7 @@
   }
 }
 
+button{border: 0; background-color: transparent;}
 a{text-decoration: none; color: #333;}
 ul, li{margin: 0; padding: 0; list-style: none;}
 .productListWrap{padding: 20px; position: fixed; top: 56px; right:0; width: 180px; background-color: #ddd;}
